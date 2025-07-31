@@ -83,7 +83,7 @@ class HuaRunSpider(scrapy.Spider):
                     "来源": self.source
                 }
 
-                print(item)  # 打印提取的数据
+                # print(item)  # 打印提取的数据
                 self.all_results.append(item)
                 yield item
         except Exception as e:
