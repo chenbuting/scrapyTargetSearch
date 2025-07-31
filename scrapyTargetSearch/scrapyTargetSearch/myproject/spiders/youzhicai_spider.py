@@ -2,7 +2,7 @@ import scrapy
 from urllib.parse import urljoin
 from datetime import datetime, timedelta
 
-class PowerChinaSpider(scrapy.Spider):
+class YouZhiCaiSpider(scrapy.Spider):
     name = "youzhicai"
     allowed_domains = ["youzhicai.com"]
     source = "优质采"
@@ -51,7 +51,7 @@ class PowerChinaSpider(scrapy.Spider):
                 "来源": self.source
             }
 
-            print(item)
+            # print(item)
             # 将抓取到的数据存储到 all_results 中
             self.all_results.append(item)
 
