@@ -38,7 +38,7 @@ class HuaRunSpider(scrapy.Spider):
 
         # 组合 URL 和查询字符串
         url = f"{self.base_url}?{query_string}"
-        print(f"Requesting URL: {url}")  # 打印请求的 URL
+        # print(f"Requesting URL: {url}")  # 打印请求的 URL
 
         # 发起 GET 请求
         try:

@@ -23,6 +23,8 @@ USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTM
 ROBOTSTXT_OBEY = False
 #只有警告 以及警告以上的错误信息才会显示
 LOG_LEVEL="WARNING"
+# LOG_LEVEL = 'INFO'
+
 
 # Concurrency and throttling settings
 #CONCURRENT_REQUESTS = 16
