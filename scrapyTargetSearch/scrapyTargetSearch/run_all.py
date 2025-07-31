@@ -4,6 +4,7 @@ from scrapy.utils.project import get_project_settings
 from myproject.spiders.powerchina_spider import PowerChinaSpider
 from myproject.spiders.huarun_spider import HuaRunSpider
 from myproject.spiders.youzhicai_spider import YouZhiCaiSpider
+from myproject.spiders.cncecyc_spider import CncecycSpider
 from myproject.utils.ygcgfw_api import YgcgfwApiCrawlerV2
 from myproject.utils.jincaizongheng_api import JingCaiZongHengCrawler
 from myproject.utils.chinasalt_api import ChinaSaltCrawler
@@ -41,6 +42,7 @@ def run_all(keyword="电缆", days=3):
     process.crawl(PowerChinaSpider, all_results=all_results, keyword=keyword, days=days)
     process.crawl(HuaRunSpider, all_results=all_results, keyword=keyword, days=days)
     process.crawl(YouZhiCaiSpider, all_results=all_results, keyword=keyword, days=days)
+    process.crawl(CncecycSpider, all_results=all_results, keyword=keyword, days=days)
     process.start()  # 等所有爬虫完成
 
     # 输出 Excel
