@@ -30,9 +30,9 @@ class CncecycSpider(scrapy.Spider):
         li_list = response.xpath('//ul[@id="list1"]/li')
         for li in li_list:
             title = li.xpath('.//a/@title').get()
-            print("====",title)
+            # print("====",title)
             pub_date = li.xpath('.//span[last()]/text()').get()
-            print("====",pub_date)
+            # print("====",pub_date)
             href = li.xpath('.//a/@href').get()
 
             if not title or not pub_date:

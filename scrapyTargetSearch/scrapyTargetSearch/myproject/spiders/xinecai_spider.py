@@ -13,7 +13,7 @@ class XinCaiSpider(scrapy.Spider):
         self.keyword = keyword
         self.days = int(days)
         self.base_url = "https://www.xinecai.com/bidding"
-        self.start_url=f"{self.base_url}?title={keyword}&verP=TVRjMU16Y3dNRGsxT1Rrek5nPT0%3D"
+        self.start_url=f"{self.base_url}?title={keyword}"
         today = datetime.now()
         self.valid_dates = set((today - timedelta(days=i)).strftime('%Y-%m-%d') for i in range(self.days + 1))
         self.all_results = all_results  # 将外部传入的 all_results 保存在爬虫实例中
@@ -29,54 +29,37 @@ class XinCaiSpider(scrapy.Spider):
             callback=self.parse,
             headers={'User-Agent': 'Mozilla/5.0'}
         )
-        # 定义请求的参数
-        # payload = {
-        #     'title': self.keyword,
-        #     'verP': 'TVRjMU16Y3dNRGsxT1Rrek5nPT0='
-        # }
-
-        # 使用 urlencode 将字典转换为查询字符串
-        # query_string = urlencode(payload)
-
-        # 组合 URL 和查询字符串
-        # url = f"{self.base_url}?{query_string}"
-        # print(f"Requesting URL: {url}")  # 打印请求的 URL
-
-        # 发起 GET 请求
-        # try:
-        #     yield scrapy.Request(
-        #         url=url,
-        #         callback=self.parse,
-        #         headers={'User-Agent': 'Mozilla/5.0'}
-        #     )
-        # except Exception as e:
-        #     print(f"Request failed with error: {e}")
 
     def parse(self, response):
-        
-        # print(response.text)
-        # 打印返回的原始文本，检查是否为有效 XML 格式
-        # print(f"Response Text (first 500 chars): {response.text[:500]}")  # 打印前 500 个字符作为调试
-        # print("===========",response.text[:5000])
-        li_list=response.xpath("//ul[@class='public-list-cot']/li")
+        print(f"响应内容: {response.text[:5500]}")  # 只打印前500个字符来避免太长
+        li_list=response.xpath("//div[@class='public-list']//ul[@class='public-list-cot']//li[@class='js-li-item']")
         # print("-----------",li_list.get())
         print(f"共找到 {len(li_list)} 条招标信息")
         for li in li_list:
-            name=li.xpath(".//h5/a/text()").get()
+            title=li.xpath(".//h5/a/text()").get().strip()
+            print("==========",title)
+            pub_date = li.xpath('.//span/text()').get()
             href=li.xpath(".//h5/a/@href").get()
-            print("name:",name)
+            print("name:",title)
             print("href:",href)
+
+            if not title or not pub_date:
+                continue
+
+            pub_date_str = pub_date.strip()
+            if pub_date_str not in self.valid_dates:
+                continue
 
             # 构造输出的 item
             item = {
-                # "标题": title,
-                # "发布日期": publish_date,
-                # "地区": "",
-                # "采购单位": purchase_org_text,
-                # "URL": full_url,
-                # "来源": self.source
+                "标题": title,
+                "发布日期": pub_date,
+                "地区": "",
+                "采购单位": "",
+                "URL": href,
+                "来源": self.source
             }
 
-            # print(item)  # 打印提取的数据
-            # self.all_results.append(item)
+            print(item)  # 打印提取的数据
+            self.all_results.append(item)
             yield item

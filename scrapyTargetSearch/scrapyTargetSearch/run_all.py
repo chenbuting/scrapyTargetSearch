@@ -5,6 +5,7 @@ from myproject.spiders.powerchina_spider import PowerChinaSpider
 from myproject.spiders.huarun_spider import HuaRunSpider
 from myproject.spiders.youzhicai_spider import YouZhiCaiSpider
 from myproject.spiders.cncecyc_spider import CncecycSpider
+from myproject.spiders.xinecai_spider import XinCaiSpider
 from myproject.utils.ygcgfw_api import YgcgfwApiCrawlerV2
 from myproject.utils.jincaizongheng_api import JingCaiZongHengCrawler
 from myproject.utils.chinasalt_api import ChinaSaltCrawler
@@ -43,6 +44,7 @@ def run_all(keyword="电缆", days=3):
     process.crawl(HuaRunSpider, all_results=all_results, keyword=keyword, days=days)
     process.crawl(YouZhiCaiSpider, all_results=all_results, keyword=keyword, days=days)
     process.crawl(CncecycSpider, all_results=all_results, keyword=keyword, days=days)
+    process.crawl(XinCaiSpider, all_results=all_results, keyword=keyword, days=days)
     process.start()  # 等所有爬虫完成
 
     # 输出 Excel
