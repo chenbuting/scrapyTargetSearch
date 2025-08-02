@@ -3,3 +3,7 @@
 
 ## 注意事项
 华润平台开启打理暂时访问失败
+
+## exe打包
+pip install cx_Freeze
+执行python setup.py build
