@@ -1,6 +1,9 @@
 import pandas as pd
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
+
+import myproject.settings
+import xml.etree.ElementTree as ET
 from myproject.spiders.powerchina_spider import PowerChinaSpider
 from myproject.spiders.huarun_spider import HuaRunSpider
 from myproject.spiders.youzhicai_spider import YouZhiCaiSpider
@@ -11,6 +14,18 @@ from myproject.utils.jincaizongheng_api import JingCaiZongHengCrawler
 from myproject.utils.chinasalt_api import ChinaSaltCrawler
 
 from datetime import datetime
+import time
+
+# import os
+# from scrapy.utils.project import get_project_settings
+# from scrapy.crawler import CrawlerProcess
+
+# # 设置 settings 环境变量，确保 Scrapy 能找到正确的 settings.py
+# os.environ['SCRAPY_SETTINGS_MODULE'] = 'myproject.settings'
+
+# # 之后再获取 Scrapy 设置
+# settings = get_project_settings()
+
 
 def run_all(keyword="电缆", days=3):
     all_results = []
@@ -53,6 +68,10 @@ def run_all(keyword="电缆", days=3):
         save_to_excel(all_results)
     else:
         print("没有数据，未生成 Excel")
+    
+    # 等待一定时间后自动关闭窗口（例如，等待 10 秒钟）
+    print("任务完成，窗口将在 10 秒后关闭...")
+    time.sleep(10)  # 等待 10 秒钟
 
 
 def save_to_excel(data):
