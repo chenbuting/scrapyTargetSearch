@@ -13,6 +13,7 @@ from myproject.utils.ygcgfw_api import YgcgfwApiCrawlerV2
 from myproject.utils.jincaizongheng_api import JingCaiZongHengCrawler
 from myproject.utils.chinasalt_api import ChinaSaltCrawler
 from myproject.utils.cdtec_api import CdtEcCrawler
+from myproject.spiders.zybtp_spider import ZybtpSpider
 
 from datetime import datetime
 import time
@@ -68,6 +69,8 @@ def run_all(keyword="电缆", days=3):
     process.crawl(YouZhiCaiSpider, all_results=all_results, keyword=keyword, days=days)
     process.crawl(CncecycSpider, all_results=all_results, keyword=keyword, days=days)
     process.crawl(XinCaiSpider, all_results=all_results, keyword=keyword, days=days)
+    process.crawl(ZybtpSpider, all_results=all_results, keyword=keyword, days=days)
+
     process.start()  # 等所有爬虫完成
 
     # 输出 Excel

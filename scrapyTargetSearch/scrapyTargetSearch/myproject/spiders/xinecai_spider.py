@@ -25,16 +25,21 @@ class XinCaiSpider(scrapy.Spider):
             self.all_results = all_results
 
     def start_requests(self):
+        # cookies = {
+        #     "Cookie": "Hm_lvt_3de3de274245e7cf84e90b616331fc3f=1754627794,1754790069,1754871752,1754958219; HMACCOUNT=317DDC2BC9E60037; Hm_lpvt_3de3de274245e7cf84e90b616331fc3f=1754969881"
+        # }
+
         yield scrapy.Request(
             url=self.start_url,
             callback=self.parse,
+            # cookies=cookies,
             headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'}
         )
 
     def parse(self, response):
-        # print(f"响应内容: {response.text[:500]}")  # 只打印前500个字符来避免太长
-        li_list=response.xpath("//div[@class='public-list']//ul[@class='public-list-cot']//li[@class='js-li-item']/li[@class='js-li-item']")
-        # print("-----------",li_list.get())
+        print("---------",response.text)
+        li_list=response.xpath("//div[@class='public-list']//ul[@class='public-list-cot']//li[@class='js-li-item']")
+        print("-----------",li_list.get())
         print(f"共找到 {len(li_list)} 条招标信息")
         for li in li_list:
             title=li.xpath(".//h5/a/text()").get().strip()
