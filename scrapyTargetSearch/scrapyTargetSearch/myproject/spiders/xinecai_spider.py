@@ -37,13 +37,13 @@ class XinCaiSpider(scrapy.Spider):
         )
 
     def parse(self, response):
-        print("---------",response.text)
+        # print("---------",response.text)
         li_list=response.xpath("//div[@class='public-list']//ul[@class='public-list-cot']//li[@class='js-li-item']")
-        print("-----------",li_list.get())
+        # print("-----------",li_list.get())
         print(f"共找到 {len(li_list)} 条招标信息")
         for li in li_list:
             title=li.xpath(".//h5/a/text()").get().strip()
-            print("==========",title)
+            # print("==========",title)
             pub_date = li.xpath('.//span/text()').get()
             href = li.xpath(".//h5[@class='public-list-cotit']/a/@href").get()
             if not href:

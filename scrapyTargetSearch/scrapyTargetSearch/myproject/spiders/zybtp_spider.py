@@ -31,13 +31,13 @@ class ZybtpSpider(scrapy.Spider):
         li_list = response.xpath('//div[@class="List2 Top10 PaddingLR15"]//ul/li')
         for li in li_list:
             title = li.xpath('.//a/@title').get()
-            print("====",title)
+            # print("====",title)
             # pub_date = li.xpath('.//span[@class="Gray fr"]/text()').get()
 
             pub_date_s = li.xpath('.//span[@class="Gray fr"]/text()').get()
             pub_date = re.search(r'(\d{4}-\d{2}-\d{2})', pub_date_s).group()
 
-            print("====",pub_date)
+            # print("====",pub_date)
             href = li.xpath('.//a/@href').get()
 
             if not title or not pub_date:
