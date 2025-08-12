@@ -44,7 +44,7 @@ class CdtEcCrawler:
             # 使用 Session 对象发送请求
             response = self.session.post(self.api_url, data=form_data, headers=headers,cookies=cookies)
             response.raise_for_status()  # 检查请求是否成功
-            # print("Response content:", response.text)
+            print("Response content:", response.text)
             json_data = response.json()  # 获取JSON数据
 
             results = []
