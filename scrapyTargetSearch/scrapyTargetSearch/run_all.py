@@ -13,6 +13,7 @@ from myproject.utils.ygcgfw_api import YgcgfwApiCrawlerV2
 from myproject.utils.jincaizongheng_api import JingCaiZongHengCrawler
 from myproject.utils.chinasalt_api import ChinaSaltCrawler
 from myproject.utils.cdtec_api import CdtEcCrawler
+from myproject.utils.ebidSinochemitc_api import EbidSinochemitcCrawler
 from myproject.spiders.zybtp_spider import ZybtpSpider
 
 from datetime import datetime
@@ -60,6 +61,14 @@ def run_all(keyword="电缆", days=3):
         all_results.extend(ygcg.fetch())
     except Exception as e:
         print(f"中国大唐集团有限公司出错: {e}")
+
+
+        print("中华商务电子招标平台（API）...")
+    try:
+        ygcg = EbidSinochemitcCrawler(keyword=keyword, days=days)
+        all_results.extend(ygcg.fetch())
+    except Exception as e:
+        print(f"中华商务电子招标平台: {e}")
 
     # Scrapy 爬虫
     print("启动 Scrapy 爬虫...")
