@@ -13,6 +13,7 @@
 
 ## 待解决
 - 信e采（安天智采）动态渲染数据待解决
+- 中国华能新版 Query String Parameters参数每次请求都发生改变，暂时没有寻找到其他规律
 
 ## exe打包
 pip install cx_Freeze

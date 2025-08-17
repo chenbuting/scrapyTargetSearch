@@ -3,7 +3,6 @@ from datetime import datetime
 
 class EbidSinochemitcCrawler:
     def __init__(self, keyword="电缆", days=3):
-        print('chushihua')
         self.keyword = keyword
         self.days = days
         self.source = "中华商务电子招标平台"
@@ -25,7 +24,6 @@ class EbidSinochemitcCrawler:
 
         if systemtimeJson['success']:
             systemtime = systemtimeJson['data']  # 获取系统时间
-            print(f"获取到系统时间: {systemtime}")
 
             # 将系统时间作为 releaseEndTime 和 releaseStartTime
             release_end_time = systemtime
@@ -49,10 +47,10 @@ class EbidSinochemitcCrawler:
 
                 # 发送请求
                 response = requests.post(self.api_url, json=form_data, headers=headers)
-                print("响应内容:", response.text)
+                # print("响应内容:", response.text)
                 response.raise_for_status()  # 检查请求是否成功
                 json_data = response.json()  # 获取JSON数据
-                print('----------', json_data)  # 打印完整返回数据以便调试
+                # print('----------', json_data)  # 打印完整返回数据以便调试
 
                 results = []
                 if 'data' in json_data and 'list' in json_data['data']:
@@ -71,7 +69,6 @@ class EbidSinochemitcCrawler:
                             "URL": f"https://www.cdt-ec.com/notice/moreController/xjdhtml?id={item['id']}",
                             "来源": self.source
                         })
-                print(results)
                 return results
             except requests.exceptions.RequestException as e:
                 print(f"请求失败: {e}")  # 请求错误

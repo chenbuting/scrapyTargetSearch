@@ -15,6 +15,7 @@ from myproject.utils.chinasalt_api import ChinaSaltCrawler
 from myproject.utils.cdtec_api import CdtEcCrawler
 from myproject.utils.ebidSinochemitc_api import EbidSinochemitcCrawler
 from myproject.spiders.zybtp_spider import ZybtpSpider
+from myproject.utils.ecChng_api import ecChngCrawler
 
 from datetime import datetime
 import time
@@ -69,6 +70,14 @@ def run_all(keyword="电缆", days=3):
         all_results.extend(ygcg.fetch())
     except Exception as e:
         print(f"中华商务电子招标平台: {e}")
+
+
+        print("中国华能新版平台（API）...")
+    try:
+        ygcg = ecChngCrawler(keyword=keyword, days=days)
+        all_results.extend(ygcg.fetch())
+    except Exception as e:
+        print(f"中国华能新版平台: {e}")
 
     # Scrapy 爬虫
     print("启动 Scrapy 爬虫...")
